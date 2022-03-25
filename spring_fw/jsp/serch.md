@@ -1,4 +1,5 @@
--jsp
+### jsp
+
 ```html
 <form class="row g-3 container text-center" style="margin-top: 100px;" action="/board/search" method="get">
   <div class="col-auto" >
@@ -17,7 +18,8 @@
   </div>
 </form>
 ```
--controller
+### controller
+
 ```java
 @RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(@RequestParam("searchtype") String searchtype,
@@ -28,7 +30,8 @@
 		return "/board/boardFindAll";
 	}
 ```
-serviceImpl - 검색종류와 키워드 두 값을 넘겨야 해서 Map으로 담음
+### serviceImpl 
+- 검색종류와 키워드 두 값을 넘겨야 해서 Map으로 담음
 ```java
 @Override
 	public List<BoardDTO> search(String searchtype, String keyword) {
@@ -40,13 +43,16 @@ serviceImpl - 검색종류와 키워드 두 값을 넘겨야 해서 Map으로 �
 	}
 ```	
 	
-repository
+### repository
+
 ```java
 public List<BoardDTO> search(Map<String, String> searchParam) {
 		return sql.selectList("Board.search", searchParam);
 	}
 ```
-- mapper에서 like 연산자 (% 와일드 카드)를 사용 할 때 concat을 붙여줘야 한다!
+
+###  mapper
+- like 연산자 (% 와일드 카드)를 사용 할 때 concat을 붙여줘야 한다!
 ```xml
 <select id="search" parameterType="java.util.HashMap" resultType="board">
 		select * from board_table
