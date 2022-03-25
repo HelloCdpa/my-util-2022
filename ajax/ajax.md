@@ -2,14 +2,39 @@
 ```
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 ```
+### 자바스크립트 값
 
-  1. const id = document.getElementById('memberId').value;
-  2. const email = document.querySelector('#memberEmail').value;
-  3. const password = $('#memberPassword').val();
-  4. const name = '[[${member.memberName}]]'; // db에 있는 값 넘길 때
+#### getElementById  
+const id = document.getElementById('memberId').value;  
+
+#### querySelector
+const email = document.querySelector('#memberEmail').value;  
+
+#### jquery  
+const password = $('#memberPassword').val();    
+const name = '[[${member.memberName}]]'; // db에 있는 값 넘길 때  
+
+#### id 가져오기
+let valueById = $('#inputId').val();  
+
+#### class 가져오기
+let valueByClass = $('.inputClass').val();  
+
+#### name 가져오기
+let valueByName = $('input[name=inputName]').val();  
+
+#### id가 test인 value 속성 값을 가져옴 
+$('#test').attr('value');
+
+#### id가 test인 속성의 src를 '/resources/img/img.png'로 바꾸기 
+$('#test').attr('src','/resources/img/img.png');
+
+#### id가 test인 disabled 속성을 disabled로 바꾸기
+$('#test').attr('disabled','disabled');
   
-  ### 사용예시
-  1. json 
+### 사용예시
+ 
+#### 1. json 
   ```javascript
    <script>
         const memberUpdate = () => {
