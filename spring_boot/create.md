@@ -1,6 +1,9 @@
-gradle 프로젝트 만들기  
-사용 dependencies : Lombok, Spring Web, Thymeleaf, Spring Data JPA, Validation   
-application.yml 설정하기  
+### 1. gradle 프로젝트 만들기  
+
+### 2. 사용 dependencies : Lombok, Spring Web, Thymeleaf, Spring Data JPA, Validation   
+
+### 3. application.yml 설정하기  
+
 ```yml
 server:
   port: 8091
@@ -40,7 +43,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   #mybatis 관련설정
 mybatis:
