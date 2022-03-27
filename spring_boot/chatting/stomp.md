@@ -5,7 +5,7 @@ implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
 
 ### StompWebSocketConfig.java  
 config폴더를 만들어서 StompWebSocketConfig 클래스를 하나 생성한다.  
-```
+```java
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
