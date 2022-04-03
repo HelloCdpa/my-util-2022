@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	<insert id="boardSave" parameterType="board">
+		insert into board_table(m_id,
+		b_title, b_contents, b_date,b_filename, cate_number)
+		values(#{m_id},#{b_title},#{b_contents},now(),#{b_filename},#{cate_number})
+	</insert>
+	<select id="boardFindAll" resultType="board">
+		select * from board_table
+	</select>
+
+	<delete id="boardDelete" parameterType="long">
+		delete from board_table
+		where b_number=#{b_number}
+	</delete>
+
+	<select id="boardPagingList" parameterType="int"
+		resultType="board">
+		select * from board_table order by b_number desc limit
+		#{pagingStart}, 3
+	</select>
+
+	<select id="boardPagingList1" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from board_table order by b_number desc limit
+		#{start}, #{limit}
+	</select>
+
+	<select id="boardCount" resultType="int">
+		select count(b_number) from
+		board_table
+	</select>
+
+	<select id="boardDetail" parameterType="long" resultType="board">
+		select
+		* from board_table where b_number = #{b_number}
+	</select>
+	
+	<update id="hitsUpdate" parameterType="long">
+		update board_table set b_hits = (b_hits+1) where b_number=#{b_number}
+
+	</update>
+
+<update id="boardUpdate" parameterType="board">
+		update board_table set
+		b_title = #{b_title}, b_contents =#{b_contents}, 
+		b_filename = #{b_filename} where b_number=#{b_number}
+
+	</update>
+	<select id="search" parameterType="java.util.HashMap" resultType="board">
+		select * from board_table
+		<include refid="sear"></include>
+	</select>
+
+	<sql id="sear">
+		<choose>
+			<when test="type=='b_title'">
+				where b_title like concat ('%', #{word}, '%')
+			</when>
+
+			<when test="type=='m_id'">
+				where m_id like concat ('%', #{word}, '%')
+			</when>
+		</choose>
+	</sql>
+
+	<select id="cateFind" parameterType="int" resultType="board">
+		select * from board_table where cate_number = #{cate_number}
+	</select>
+	
+	<select id="catePagingList" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from board_table where cate_number = #{cate_number}
+		 order by b_number desc limit
+		#{pagingStart}, 3
+	</select>
+
+	<select id="catePagingList1" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from board_table where cate_number = #{cate_number}
+		order by b_number desc limit
+		#{start}, #{limit}
+	</select>
+
+<select id="cateBoardCount" parameterType="int" resultType="int">
+		select count(b_number) from
+		board_table where cate_number = #{cate_number}
+	</select>
+
+<select id="findLike" parameterType="java.util.HashMap" resultType="like">
+	select * from like_table where b_number=#{b_number} and m_id=#{m_id}
+</select>
+
+<select id="memberFindLike" parameterType="like" resultType="like">
+	select * from like_table where b_number=#{b_number} and m_id=#{m_id}
+</select>
+
+
+<insert id="insertLike" parameterType="like">
+	insert into like_table(b_number, m_id, like_check)
+		values(#{b_number}, #{m_id}, 1)
+</insert>
+
+
+<delete id="deleteLike" parameterType="like">
+	delete from like_table where b_number=#{b_number} and m_id=#{m_id}
+</delete>
+
+<update id="plusLike" parameterType="like">
+		update board_table set
+		like_count = like_count+1
+		where b_number=#{b_number}
+	</update>
+
+<update id="minusLike" parameterType="like">
+		update board_table set
+		like_count = like_count-1
+		where b_number=#{b_number}
+	</update>
+
+<select id="viewSort" resultType="board">
+	select * from board_table order by b_hits desc 
+</select>
+
+<select id="likeSort" resultType="board">
+	select * from board_table order by like_count desc 
+</select>
+
+<select id="cateviewSort" parameterType="int" resultType="board">
+	select * from board_table where cate_number = #{cate_number} order by b_hits desc 
+</select>
+
+<select id="catelikeSort" parameterType="int" resultType="board">
+	select * from board_table where cate_number = #{cate_number} order by like_count desc 
+</select>
+
+</mapper>
